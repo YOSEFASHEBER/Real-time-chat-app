@@ -6,7 +6,9 @@ const protectRoute = async (req, res, next) => {
     const token = req.cookies.jwt;
     console.log(`this is the token from protected route ${token}`);
     if (!token) {
-      return res.send(401).json({ error: "unauthorized - No token provided" });
+      return res
+        .status(401)
+        .json({ error: "unauthorized - No token provided" });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("jwt secret");
@@ -27,7 +29,7 @@ const protectRoute = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("Error in protectRoute middleware: ", error.message);
-    res.status(500).json({ error: "Interval server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

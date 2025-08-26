@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
+import userRoute from "./routes/user.routes.js";
 import db from "./db/connectToMongoDB.js";
 import cookieParser from "cookie-parser";
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use("/api/auth", authRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/users", userRoute);
 
 db();
 
