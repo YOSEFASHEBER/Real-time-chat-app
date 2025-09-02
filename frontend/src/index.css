@@ -10,28 +10,64 @@
 
   Then, just keep your CSS as:
 */
+@tailwind utilities;
 
+@layer utilities {
+  .custom-scrollbar {
+    @apply overflow-y-scroll; /* make sure it's scrollable */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme('colors.gray.200');
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: theme('colors.blue.500');
+    border-radius: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.blue.600');
+  }
+
+  /* Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.blue.500') theme('colors.gray.200');
+  }
+}
 body {
   background-image: url("../public/vanishing-stripes.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
-
-/* dark mode looking scrollbar */
-::-webkit-scrollbar {
+/* dark mode looking scrollbar
+.custom-scrollbar ::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
+.custom-scrollbar ::-webkit-scrollbar-track {
   background: #555;
 }
 
-::-webkit-scrollbar-thumb {
+.custom-scrollbar ::-webkit-scrollbar-thumb {
   background: #121212;
   border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.custom-scrollbar ::-webkit-scrollbar-thumb:hover {
   background: #242424;
 }
+
+/* Hide default scrollbar and apply custom style */
+
+/* For Firefox */
+/* .custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #121212;
+} */ */
