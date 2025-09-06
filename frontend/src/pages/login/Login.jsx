@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
   const { loading, login } = useLogin();
   const [input, setInput] = useState({
     userName: "",
@@ -27,36 +29,45 @@ function Login() {
             <label className="label p-2">
               <span className="text-base label-text"> username</span>
             </label>
-            <input
-              type="text"
-              placeholder="Enter username"
-              className="w-full input input-border h-10"
-              value={input.userName}
-              onChange={(e) => {
-                setInput((prev) => {
-                  const newState = { ...prev, userName: e.target.value };
+            <div className="relative w-auto">
+              <input
+                type="text"
+                placeholder="Enter username"
+                className="w-full p-2 pr-10 border rounded"
+                value={input.userName}
+                onChange={(e) => {
+                  setInput((prev) => {
+                    const newState = { ...prev, userName: e.target.value };
 
-                  return newState;
-                });
-              }}
-            />
-
+                    return newState;
+                  });
+                }}
+              />
+            </div>
             <label className="label p-2">
               <span className="text-base label-text"> Password</span>
             </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              className="w-full input input-border h-10"
-              value={input.password}
-              onChange={(e) => {
-                setInput((prev) => {
-                  const newValue = { ...prev, password: e.target.value };
+            <div className="relative w-auto">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter Password"
+                className="w-full p-2 pr-10 border rounded"
+                value={input.password}
+                onChange={(e) => {
+                  setInput((prev) => {
+                    const newValue = { ...prev, password: e.target.value };
 
-                  return newValue;
-                });
-              }}
-            />
+                    return newValue;
+                  });
+                }}
+              />
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
           <Link
             to={"/signup"}

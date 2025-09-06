@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import GenderCheckbox from "./GenderCheckBox";
 import { Link } from "react-router-dom";
 import useSignup from "../../hooks/useSignup";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup() {
   const [inputs, setInput] = useState({
@@ -11,6 +12,8 @@ function Signup() {
     confirmPassword: "",
     gender: "",
   });
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const { loading, signup } = useSignup();
 
   const handleSubmit = async (e) => {
@@ -33,7 +36,7 @@ function Signup() {
             <input
               type="text"
               placeholder="eg = John Doe"
-              className="w-full input input-bordered  h-10"
+              className="w-full p-2 pr-10 border rounded"
               value={inputs.fullName}
               onChange={(e) => {
                 setInput((prev) => {
@@ -52,7 +55,7 @@ function Signup() {
             <input
               type="text"
               placeholder="eg = johndoe"
-              className="w-full input input-bordered h-10"
+              className="w-full p-2 pr-10 border rounded"
               value={inputs.userName}
               onChange={(e) => {
                 setInput((prev) => {
@@ -68,38 +71,57 @@ function Signup() {
             <label className="label">
               <span className="text-base label-text">Password</span>
             </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              className="w-full input input-bordered h-10"
-              value={inputs.password}
-              onChange={(e) => {
-                setInput((prev) => {
-                  const newInput = { ...prev, password: e.target.value };
+            <div className="relative w-auto">
+              <input
+                type={showPassword1 ? "text" : "password"}
+                placeholder="Enter Password"
+                className="w-full p-2 pr-10 border rounded"
+                value={inputs.password}
+                onChange={(e) => {
+                  setInput((prev) => {
+                    const newInput = { ...prev, password: e.target.value };
 
-                  return newInput;
-                });
-              }}
-            />
+                    return newInput;
+                  });
+                }}
+              />
+              <span
+                onClick={() => setShowPassword1((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+              >
+                {showPassword1 ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
 
           <div>
             <label className="label">
               <span className="text-base label-text">Confirm Password</span>{" "}
             </label>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              className="w-full input input-bordered h-10"
-              value={inputs.confirmPassword}
-              onChange={(e) => {
-                setInput((prev) => {
-                  const newInput = { ...prev, confirmPassword: e.target.value };
+            <div className="relative w-auto">
+              <input
+                type={showPassword2 ? "text" : "password"}
+                placeholder="Confirm Password"
+                className="w-full p-2 pr-10 border rounded"
+                value={inputs.confirmPassword}
+                onChange={(e) => {
+                  setInput((prev) => {
+                    const newInput = {
+                      ...prev,
+                      confirmPassword: e.target.value,
+                    };
 
-                  return newInput;
-                });
-              }}
-            />
+                    return newInput;
+                  });
+                }}
+              />
+              <span
+                onClick={() => setShowPassword2((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+              >
+                {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
 
           <GenderCheckbox setInput={setInput} input={inputs} />

@@ -9,9 +9,10 @@ import { useAuthContext } from "./context/AuthContext";
 function App() {
   const { authUser } = useAuthContext();
   return (
-    <div className="p-4 h-screen flex items-center justify-center">
+    <div className=" h-[100vh]  flex items-center  justify-center  bg-gradient-to-tr from-blue-900 via-black to-gray-500  ">
       <Routes>
         <Route
+          className="border-2 border-green-500"
           path="/"
           element={authUser ? <Home /> : <Navigate to={"/login"} />}
         />
@@ -28,5 +29,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
