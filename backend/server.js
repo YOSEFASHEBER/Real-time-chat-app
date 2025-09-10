@@ -6,9 +6,10 @@ import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 import db from "./db/connectToMongoDB.js";
 import cookieParser from "cookie-parser";
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
-const app = express();
+
 const port = process.env.PORT || 5000;
 
 app.use(cookieParser());
@@ -19,6 +20,6 @@ app.use("/api/users", userRoute);
 
 db();
 
-app.listen(port, async () => {
+server.listen(port, async () => {
   console.log(`server is running on port ${port}`);
 });
